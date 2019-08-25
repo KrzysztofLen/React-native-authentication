@@ -1,0 +1,18 @@
+{
+    "extends": "prettier",
+    "globals": {
+        "fetch": false
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        }
+    }
+}
