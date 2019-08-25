@@ -4,7 +4,9 @@
 	"description": "React Native, React, Node JS, Typescript",
 	"main": "index.js",
 	"scripts": {
-		"develop:web": "cd web && yarn run start"
+		"develop:web": "cd web && yarn run start",
+		"develop:mobile": "cd mobile && yarn run start",
+		"develop:server": "cd server && yarn run start"
 	},
 	"repository": {
 		"type": "git",
