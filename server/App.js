@@ -1,16 +1,26 @@
+// Models ######################
+require("./models/User");
+
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
+const authRoutes = require("./routes/authRoutes");
+
+const requireAuth = require("./middlewares/requireAuth");
+
 const APP = express();
 
-// DB #######################
-require('./db/mongoose');
+APP.use(bodyParser.json());
 
-APP.use((req, res, next) => {
-    res.send({
-        message: "Hello from server"
-    });
+// DB #######################
+require("./db/mongoose");
+
+// ROUTES #######################
+APP.use(authRoutes);
+
+APP.use("/", requireAuth, (req, res, next) => {
+    res.send(`User: ${req.user.email}`);
 });
 
 module.exports = APP;
