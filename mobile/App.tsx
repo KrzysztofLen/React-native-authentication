@@ -5,19 +5,17 @@ import { Navigation } from "./src/Navigation";
 
 const theme = {
     ...DefaultTheme,
-    dark: true,
     roundness: 2,
     colors: {
         ...DefaultTheme.colors,
         primary: "#3498db",
-        accent: "#f1c40f",
-        background: "#121212"
+        accent: "#f1c40f"
     }
 };
 
 export default function App() {
     return (
-        <PaperProvider theme={theme}>
+        <PaperProvider>
             <Navigation />
         </PaperProvider>
     );
