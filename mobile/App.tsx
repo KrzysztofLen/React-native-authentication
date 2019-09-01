@@ -1,19 +1,24 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import { Text, View } from "react-native";
+import { Navigation } from "./src/Navigation";
+
+const theme = {
+    ...DefaultTheme,
+    dark: true,
+    roundness: 2,
+    colors: {
+        ...DefaultTheme.colors,
+        primary: "#3498db",
+        accent: "#f1c40f",
+        background: "#121212"
+    }
+};
 
 export default function App() {
     return (
-        <View style={styles.container}>
-            <Text>Open up App.tsx to start working on your app!</Text>
-        </View>
+        <PaperProvider theme={theme}>
+            <Navigation />
+        </PaperProvider>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: "#fff",
-        alignItems: "center",
-        justifyContent: "center"
-    }
-});
