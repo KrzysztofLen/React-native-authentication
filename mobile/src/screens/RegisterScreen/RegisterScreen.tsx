@@ -1,19 +1,24 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {Title} from 'react-native-paper';
+import {Title, Button} from 'react-native-paper';
+import {AuthForm} from '../../components';
+import {styles} from './styles';
 
-const RegisterScreen = () => {
+const RegisterScreen = ({navigation}) => {
     return (
-        <View style={{flex: 1}}>
-            <Title>Register</Title>
-            <View
-                style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}>
-                <Text>Register</Text>
-            </View>
+        <View style={styles.formStyle}>
+            <Title style={styles.titleStyle}>Register</Title>
+
+            <AuthForm
+                route={navigation.state.routeName}
+                confirm={true}
+                submitButtonText={'Register'}
+            />
+            <Button
+                style={styles.linkStyle}
+                onPress={() => navigation.navigate('Login')}>
+                Already have a account? Login!
+            </Button>
         </View>
     );
 };

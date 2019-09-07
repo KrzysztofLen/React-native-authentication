@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"develop:web": "cd web && yarn run start",
-		"develop:mobile": "cd mobile && yarn run start",
+		"develop:mobile": "cd mobile && react-native run-ios",
 		"develop:server": "cd server && yarn run start"
 	},
 	"repository": {

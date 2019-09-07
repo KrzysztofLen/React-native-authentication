@@ -9,7 +9,10 @@ const LoginScreen = ({navigation}) => {
         <View style={styles.formStyle}>
             <Title style={styles.titleStyle}>Login</Title>
 
-            <AuthForm />
+            <AuthForm
+                route={navigation.state.routeName}
+                submitButtonText={'Login'}
+            />
             <Button
                 style={styles.linkStyle}
                 onPress={() => navigation.navigate('Register')}>
