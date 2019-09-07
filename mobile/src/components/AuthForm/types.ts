@@ -1,3 +1,5 @@
+import { NavigationProp } from "react-navigation-stack/lib/typescript/types";
+
 export type Errors = {[k: string]: string};
 
 export type FormValues = {
@@ -10,4 +12,5 @@ export type IProps = {
     readonly confirm?: boolean;
     readonly route: string;
     readonly submitButtonText: string;
+    readonly navigation?: NavigationProp;
 };

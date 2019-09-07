@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
+import {withNavigation} from 'react-navigation';
 import {Formik} from 'formik';
-import {SafeAreaView, Text, View} from 'react-native';
+import {SafeAreaView, Text, View, AsyncStorage} from 'react-native';
 import {
     ActivityIndicator,
     Button,
@@ -12,27 +13,36 @@ import {validate} from './../../utils/validations';
 import {server} from './../../api/server';
 import {IProps, FormValues} from './types';
 
-const reducer = (state, action) => {
+const authReducer = (state, action) => {
     switch (action.type) {
         case 'login':
+            return {errorMessage: '', token: action.payload};
+        case 'register':
             return {errorMessage: '', token: action.payload};
         default:
             return state;
     }
 };
 
-export const AuthForm = ({
+const AuthForm = ({
     confirm = false,
     route,
     submitButtonText,
+    navigation,
 }: IProps) => {
     // const [visible, setVisible] = useState(true);
     const [error, setError] = useState('');
 
-    const login = async ({email, password}) => {
+    const login = (dispatch) => async ({email, password}) => {
         try {
             const response = await server.post('/login', {email, password});
-            console.log(response.data.token);
+            await AsyncStorage.setItem('token', response.data.token);
+
+            dispatch({
+                type: 'login',
+                payload: response.data.token,
+            });
+            navigation.navigate('Dashboard');
         } catch (error) {
             console.log(error);
         }
@@ -40,7 +50,14 @@ export const AuthForm = ({
 
     const register = async ({email, password}) => {
         try {
-            console.log('Register', email, password);
+            const response = await server.post('/register', {email, password});
+            await AsyncStorage.setItem('token', response.data.token);
+
+            // dispatch({
+            //     type: 'register',
+            //     payload: response.data.token,
+            // });
+            navigation.navigate('Dashboard');
         } catch (error) {
             console.log(error);
         }
@@ -58,8 +75,8 @@ export const AuthForm = ({
                 actions.setSubmitting(false);
                 return;
             } else {
-                actions.setSubmitting(false);
                 register(values);
+                actions.setSubmitting(false);
             }
         }
     };
@@ -151,3 +168,5 @@ export const AuthForm = ({
         </React.Fragment>
     );
 };
+
+export default withNavigation(AuthForm);

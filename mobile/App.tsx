@@ -2,7 +2,7 @@ import React from 'react';
 import {Component} from 'react';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import {Text, View} from 'react-native';
-import {Navigation} from './src/Navigation';
+import {Navigation} from './src/routes/Navigation';
 
 const theme = {
     ...DefaultTheme,
