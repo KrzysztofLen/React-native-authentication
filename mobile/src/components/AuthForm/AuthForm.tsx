@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {withNavigation} from 'react-navigation';
-import {Formik} from 'formik';
-import {SafeAreaView, Text, View, AsyncStorage} from 'react-native';
+import {Formik, ErrorMessage} from 'formik';
+import {Text, View} from 'react-native';
 import {
     ActivityIndicator,
     Button,
@@ -10,58 +10,12 @@ import {
 } from 'react-native-paper';
 import {styles} from './styles';
 import {validate} from './../../utils/validations';
-import {server} from './../../api/server';
 import {IProps, FormValues} from './types';
+import {AuthContext} from './../../context';
 
-const authReducer = (state, action) => {
-    switch (action.type) {
-        case 'login':
-            return {errorMessage: '', token: action.payload};
-        case 'register':
-            return {errorMessage: '', token: action.payload};
-        default:
-            return state;
-    }
-};
-
-const AuthForm = ({
-    confirm = false,
-    route,
-    submitButtonText,
-    navigation,
-}: IProps) => {
+const AuthForm = ({confirm = false, route, submitButtonText}: IProps) => {
     // const [visible, setVisible] = useState(true);
-    const [error, setError] = useState('');
-
-    const login = (dispatch) => async ({email, password}) => {
-        try {
-            const response = await server.post('/login', {email, password});
-            await AsyncStorage.setItem('token', response.data.token);
-
-            dispatch({
-                type: 'login',
-                payload: response.data.token,
-            });
-            navigation.navigate('Dashboard');
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const register = async ({email, password}) => {
-        try {
-            const response = await server.post('/register', {email, password});
-            await AsyncStorage.setItem('token', response.data.token);
-
-            // dispatch({
-            //     type: 'register',
-            //     payload: response.data.token,
-            // });
-            navigation.navigate('Dashboard');
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    const {token, error, login, register} = useContext(AuthContext);
 
     const onSubmit = (values: FormValues, actions) => {
         if (route === 'Login') {
@@ -70,14 +24,8 @@ const AuthForm = ({
         }
 
         if (route === 'Register') {
-            if (values.password !== values.confirmPassword) {
-                setError("Provided passwords doesn't match");
-                actions.setSubmitting(false);
-                return;
-            } else {
-                register(values);
-                actions.setSubmitting(false);
-            }
+            actions.setSubmitting(false);
+            register(values);
         }
     };
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View} from 'react-native';
 import {Title, Button} from 'react-native-paper';
 import AuthForm from '../../components/AuthForm/AuthForm';
 import {styles} from './styles';
