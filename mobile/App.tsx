@@ -1,9 +1,7 @@
 import React from 'react';
-import {Component} from 'react';
 import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
 import {setNavigator} from './src/routes/NavigationService';
 import {Navigation} from './src/routes/Navigation';
-//import {Provider as AuthProvider} from './src/context';
 import AuthProvider from './src/context/AuthContext';
 
 const theme = {

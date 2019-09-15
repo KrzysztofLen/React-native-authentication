@@ -9,6 +9,7 @@ import DashboardScreen from '../screens/DashboardScreen/DashboardScreen';
 import WithdrawScreen from '../screens/WithdrawScreen/WithdrawScreen';
 import AddScreen from '../screens/AddScreen/AddScreen';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
+import ResolveAuthScreen from '../screens/ResolveAuthScreen/ResolveAuthScreen';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -16,34 +17,32 @@ const TabNavigator = createMaterialBottomTabNavigator({
     Dashboard: {
         screen: DashboardScreen,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => {
-                return <Icon name={'th-list'} size={25} color={tintColor} />;
+            tabBarIcon: () => {
+                return <Icon name={'th-list'} size={25} color={'white'} />;
             },
         },
     },
     Withdraw: {
         screen: WithdrawScreen,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => {
-                return <Icon name={'dollar'} size={25} color={tintColor} />;
+            tabBarIcon: () => {
+                return <Icon name={'dollar'} size={25} color={'white'} />;
             },
         },
     },
     Add: {
         screen: AddScreen,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => {
-                return (
-                    <Icon name={'plus-circle'} size={25} color={tintColor} />
-                );
+            tabBarIcon: () => {
+                return <Icon name={'plus-circle'} size={25} color={'white'} />;
             },
         },
     },
     Profile: {
         screen: ProfileScreen,
         navigationOptions: {
-            tabBarIcon: ({tintColor}) => {
-                return <Icon name={'user'} size={25} color={tintColor} />;
+            tabBarIcon: () => {
+                return <Icon name={'user'} size={25} color={'white'} />;
             },
         },
     },
@@ -65,6 +64,7 @@ const StackNavigator = createStackNavigator({
 });
 
 const AppNavigator = createSwitchNavigator({
+    ResolveAuth: ResolveAuthScreen,
     LoginFlow: StackNavigator,
     AppFlow: TabNavigator,
 });

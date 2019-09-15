@@ -8,9 +8,26 @@ import {FormValues} from '../components/AuthForm/types';
 export const AuthContext: any = React.createContext({});
 export const AuthConsumer = AuthContext.Consumer;
 
-const AuthProvider = (props) => {
-    const [token, setToken] = useState(null);
-    const [error, setError] = useState('');
+interface Props {
+    children: JSX.Element[] | JSX.Element;
+}
+
+const AuthProvider = (props: Props) => {
+    const [token, setToken] = useState<string | null>(null);
+    const [snackbarMessage, setSnackbarMessage] = useState<string>('');
+    const [error, setError] = useState<string>('');
+  
+    const tryLogin = async () => {
+        const token = await AsyncStorage.getItem('token');
+
+        if (token) {
+            setToken(token);
+            setSnackbarMessage('Login success');
+            navigate('Dashboard');
+        } else {
+            navigate('Register');
+        }
+    };
 
     const login = async (values: FormValues) => {
         const {email, password} = values;
@@ -18,13 +35,10 @@ const AuthProvider = (props) => {
             const response = await server.post('/login', {email, password});
             await AsyncStorage.setItem('token', response.data.token);
 
-            // dispatch({
-            //     type: 'login',
-            //     payload: response.data.token,
-            // });
-            //navigation.navigate('Dashboard');
+            setToken(response.data.token);
+            navigate('Dashboard');
         } catch (error) {
-            console.log(error);
+            setError(error.response.data.message);
         }
     };
 
@@ -41,19 +55,30 @@ const AuthProvider = (props) => {
             await AsyncStorage.setItem('token', response.data.token);
 
             setToken(response.data.token);
+            setSnackbarMessage('Welcome, register success');
             navigate('Dashboard');
         } catch (error) {
             setError(error.response.data.message);
         }
     };
 
+    const logout = async () => {
+        await AsyncStorage.removeItem('token');
+        setToken(null);
+        setError('');
+        navigate('Login');
+    };
+
     return (
         <AuthContext.Provider
             value={{
                 token,
+                snackbarMessage,
                 error,
                 register: register,
                 login: login,
+                tryLogin: tryLogin,
+                logout: logout,
             }}>
             {props.children}
         </AuthContext.Provider>

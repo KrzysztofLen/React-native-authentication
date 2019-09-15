@@ -1,23 +1,20 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {withNavigation} from 'react-navigation';
-import {Formik, ErrorMessage} from 'formik';
+import {Formik, FormikActions} from 'formik';
 import {Text, View} from 'react-native';
-import {
-    ActivityIndicator,
-    Button,
-    Snackbar,
-    TextInput,
-} from 'react-native-paper';
+import {ActivityIndicator, Button, TextInput} from 'react-native-paper';
 import {styles} from './styles';
 import {validate} from './../../utils/validations';
 import {IProps, FormValues} from './types';
 import {AuthContext} from './../../context';
 
 const AuthForm = ({confirm = false, route, submitButtonText}: IProps) => {
-    // const [visible, setVisible] = useState(true);
-    const {token, error, login, register} = useContext(AuthContext);
+    const {error, login, register} = useContext(AuthContext);
 
-    const onSubmit = (values: FormValues, actions) => {
+    const onSubmit = (
+        values: FormValues,
+        actions: FormikActions<FormValues>,
+    ) => {
         if (route === 'Login') {
             actions.setSubmitting(false);
             login(values);
@@ -98,21 +95,6 @@ const AuthForm = ({confirm = false, route, submitButtonText}: IProps) => {
                     </View>
                 )}
             </Formik>
-            {/* {visible && (
-                <Snackbar
-                    duration={100000}
-                    visible={visible}
-                    onDismiss={() => setVisible(false)}
-                    action={{
-                        label: "Close",
-                        onPress: () => setVisible(false)
-                    }}
-                    theme={{ colors: { accent: colors.white } }}
-                    style={styles.snackBarStyle}
-                >
-                    Login successful
-                </Snackbar>
-            )} */}
         </React.Fragment>
     );
 };
