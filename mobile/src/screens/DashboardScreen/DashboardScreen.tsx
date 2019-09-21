@@ -1,32 +1,32 @@
-import React, {useContext, useState} from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
-import {Button, Snackbar} from 'react-native-paper';
-import {AuthContext} from './../../context';
+import React, { useContext, useState } from 'react';
+import { View, Text, SafeAreaView } from 'react-native';
+import { Button, Snackbar } from 'react-native-paper';
+
+import { Context as AuthContext } from './../../context/AuthContext';
 
 const DashboardScreen = () => {
-    const {logout, snackbarMessage} = useContext(AuthContext);
-    const [visible, setVisible] = useState(true);
+    const { state, logout } = useContext(AuthContext);
+    const [visible, setVisible] = useState<boolean>(true);
 
     return (
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
             <SafeAreaView>
                 <Text>Welcome in the App!</Text>
                 <Button icon="lock" mode="contained" onPress={() => logout()}>
                     LOGOUT
                 </Button>
             </SafeAreaView>
-            {snackbarMessage && (
-                <Snackbar
-                    duration={5000}
-                    visible={visible}
-                    onDismiss={() => setVisible(false)}
-                    action={{
-                        label: 'Close',
-                        onPress: () => setVisible(false),
-                    }}>
-                    <Text>{snackbarMessage}</Text>
-                </Snackbar>
-            )}
+
+            <Snackbar
+                duration={5000}
+                visible={visible}
+                onDismiss={() => setVisible(false)}
+                action={{
+                    label: 'Close',
+                    onPress: () => setVisible(false),
+                }}>
+                <Text>{state.snackbarMessage}</Text>
+            </Snackbar>
         </View>
     );
 };

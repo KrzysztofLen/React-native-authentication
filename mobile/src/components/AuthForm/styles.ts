@@ -1,12 +1,12 @@
-import { colors } from "./../../utils/colors";
-import { StyleSheet } from "react-native";
+import { colors } from './../../utils/colors';
+import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
     inputStyle: {
-        backgroundColor: "white"
+        backgroundColor: 'white',
     },
     buttonStyle: {
-        marginTop: 30
+        marginTop: 30,
     },
     snackBarStyle: {
         backgroundColor: colors.secondary,
@@ -14,6 +14,6 @@ export const styles = StyleSheet.create({
     },
     errorStyle: {
         color: colors.error,
-        marginTop: 10
-    }
+        marginTop: 10,
+    },
 });

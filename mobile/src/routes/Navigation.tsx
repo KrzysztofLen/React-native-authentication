@@ -1,7 +1,8 @@
 import React from 'react';
-import {createSwitchNavigator, createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
+import { Avatar } from 'react-native-paper';
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
 
 import LoginScreen from '../screens/LoginScreen/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen/RegisterScreen';
@@ -53,6 +54,7 @@ const StackNavigator = createStackNavigator({
         screen: LoginScreen,
         navigationOptions: () => ({
             title: 'Login',
+            headerRight: <Avatar.Text size={24} label="JD" />,
         }),
     },
     Register: {
@@ -67,6 +69,8 @@ const AppNavigator = createSwitchNavigator({
     ResolveAuth: ResolveAuthScreen,
     LoginFlow: StackNavigator,
     AppFlow: TabNavigator,
+}, {
+    initialRouteName: "LoginFlow"
 });
 
 export const Navigation = createAppContainer(AppNavigator);

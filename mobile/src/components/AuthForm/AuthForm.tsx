@@ -1,37 +1,37 @@
-import React, {useContext} from 'react';
-import {withNavigation} from 'react-navigation';
-import {Formik, FormikActions} from 'formik';
-import {Text, View} from 'react-native';
-import {ActivityIndicator, Button, TextInput} from 'react-native-paper';
-import {styles} from './styles';
-import {validate} from './../../utils/validations';
-import {IProps, FormValues} from './types';
-import {AuthContext} from './../../context';
+import React, { useContext } from 'react';
+import { Text, View } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import { ActivityIndicator, Button, TextInput } from 'react-native-paper';
 
-const AuthForm = ({confirm = false, route, submitButtonText}: IProps) => {
-    const {error, login, register} = useContext(AuthContext);
+import { Formik, FormikActions } from 'formik';
 
-    const onSubmit = (
-        values: FormValues,
-        actions: FormikActions<FormValues>,
-    ) => {
-        if (route === 'Login') {
-            actions.setSubmitting(false);
-            login(values);
-        }
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
-        if (route === 'Register') {
-            actions.setSubmitting(false);
-            register(values);
-        }
-    };
+import { validate } from './../../utils/validations';
+import { Context as AuthContext } from './../../context/AuthContext';
+
+import { styles } from './styles';
+import { IProps, FormValues } from './types';
+
+const INITIAL_VALUES: FormValues = {
+    email: '',
+    password: '',
+    confirmPassword: '',
+};
+
+const AuthForm = ({ confirm = false, onSubmit, submitButtonText }: IProps) => {
+    const { error } = useContext(AuthContext);
 
     return (
         <React.Fragment>
             <Formik
-                initialValues={{email: '', password: ''}}
-                onSubmit={(values, actions) => {
-                    onSubmit(values, actions);
+                initialValues={INITIAL_VALUES}
+                onSubmit={(
+                    values: FormValues,
+                    actions: FormikActions<FormValues>,
+                ) => {
+                    onSubmit(values);
+                    actions.setSubmitting(false);
                 }}
                 validate={validate}>
                 {({
@@ -73,14 +73,11 @@ const AuthForm = ({confirm = false, route, submitButtonText}: IProps) => {
                             />
                         )}
                         {errors.email && touched.email && (
-                            <Text style={styles.errorStyle}>
-                                {errors.email}
-                            </Text>
+                            <ErrorMessage text={errors.email} />
                         )}
 
-                        {error !== '' && (
-                            <Text style={styles.errorStyle}>{error}</Text>
-                        )}
+                        {error != null && <ErrorMessage text={error} />}
+
                         {isSubmitting ? (
                             <ActivityIndicator animating={true} />
                         ) : (
@@ -88,7 +85,7 @@ const AuthForm = ({confirm = false, route, submitButtonText}: IProps) => {
                                 icon="lock-open"
                                 mode="contained"
                                 style={styles.buttonStyle}
-                                onPress={() => handleSubmit()}>
+                                onPress={handleSubmit}>
                                 {submitButtonText}
                             </Button>
                         )}

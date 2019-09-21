@@ -1,8 +1,8 @@
 import React from 'react';
-import {DefaultTheme, Provider as PaperProvider} from 'react-native-paper';
-import {setNavigator} from './src/routes/NavigationService';
-import {Navigation} from './src/routes/Navigation';
-import AuthProvider from './src/context/AuthContext';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { setNavigator } from './src/routes/NavigationService';
+import { Navigation } from './src/routes/Navigation';
+import { Provider as AuthProvider } from './src/context/AuthContext';
 
 const theme = {
     ...DefaultTheme,
