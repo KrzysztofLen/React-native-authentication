@@ -1,4 +1,5 @@
-import { NavigationProp } from 'react-navigation-stack/lib/typescript/types';
+import * as Yup from 'yup';
+import { RegisterSchema, LoginSchema } from '../../screens';
 
 export type Errors = { [key: string]: string };
 
@@ -8,10 +9,11 @@ export type FormValues = {
     readonly confirmPassword?: string;
 };
 
-export type IProps = {
+export type Props = {
     readonly confirm?: boolean;
     readonly route: string;
     readonly submitButtonText: string;
-    readonly navigation?: NavigationProp;
+    readonly navigation?: any;
     readonly onSubmit: (values: FormValues) => void;
+    readonly validationSchema: any;
 };

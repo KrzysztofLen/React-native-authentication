@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { ActivityIndicator, Button, TextInput } from 'react-native-paper';
 
@@ -7,11 +7,10 @@ import { Formik, FormikActions } from 'formik';
 
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 
-import { validate } from './../../utils/validations';
 import { Context as AuthContext } from './../../context/AuthContext';
 
 import { styles } from './styles';
-import { IProps, FormValues } from './types';
+import { Props, FormValues } from './types';
 
 const INITIAL_VALUES: FormValues = {
     email: '',
@@ -19,7 +18,7 @@ const INITIAL_VALUES: FormValues = {
     confirmPassword: '',
 };
 
-const AuthForm = ({ confirm = false, onSubmit, submitButtonText }: IProps) => {
+const AuthForm = ({ confirm = false, onSubmit, submitButtonText, validationSchema }: Props) => {
     const { error } = useContext(AuthContext);
 
     return (
@@ -33,7 +32,7 @@ const AuthForm = ({ confirm = false, onSubmit, submitButtonText }: IProps) => {
                     onSubmit(values);
                     actions.setSubmitting(false);
                 }}
-                validate={validate}>
+                validationSchema={validationSchema}>
                 {({
                     handleBlur,
                     handleChange,
@@ -41,40 +40,52 @@ const AuthForm = ({ confirm = false, onSubmit, submitButtonText }: IProps) => {
                     errors,
                     touched,
                     isSubmitting,
+                    isValid,
+                    setFieldTouched,
                 }) => (
                     <View>
                         <TextInput
                             autoCapitalize={'none'}
                             autoCorrect={false}
                             label={'Email'}
-                            onBlur={handleBlur('email')}
+                            onBlur={() => setFieldTouched('email')}
                             onChangeText={handleChange('email')}
                             style={styles.inputStyle}
                         />
+
+                        {errors.email && touched.email ? (
+                            <ErrorMessage text={errors.email} />
+                        ) : null}
+
                         <TextInput
                             autoCapitalize={'none'}
                             autoCorrect={false}
                             label={'Password'}
-                            onBlur={handleBlur('password')}
+                            onBlur={() => setFieldTouched('password')}
                             onChangeText={handleChange('password')}
                             secureTextEntry
                             style={styles.inputStyle}
                         />
+
+                        {errors.password && touched.password ? (
+                            <ErrorMessage text={errors.password} />
+                        ) : null}
 
                         {confirm && (
                             <TextInput
                                 autoCapitalize={'none'}
                                 autoCorrect={false}
                                 label={'Confirm password'}
-                                onBlur={handleBlur('confirmPassword')}
+                                onBlur={() => setFieldTouched('confirmPassword')}
                                 onChangeText={handleChange('confirmPassword')}
                                 secureTextEntry
                                 style={styles.inputStyle}
                             />
                         )}
-                        {errors.email && touched.email && (
-                            <ErrorMessage text={errors.email} />
-                        )}
+
+                        {errors.confirmPassword && touched.confirmPassword ? (
+                            <ErrorMessage text={errors.confirmPassword} />
+                        ) : null}
 
                         {error != null && <ErrorMessage text={error} />}
 
@@ -82,9 +93,9 @@ const AuthForm = ({ confirm = false, onSubmit, submitButtonText }: IProps) => {
                             <ActivityIndicator animating={true} />
                         ) : (
                             <Button
-                                icon="lock-open"
                                 mode="contained"
                                 style={styles.buttonStyle}
+                                disabled={!isValid}
                                 onPress={handleSubmit}>
                                 {submitButtonText}
                             </Button>

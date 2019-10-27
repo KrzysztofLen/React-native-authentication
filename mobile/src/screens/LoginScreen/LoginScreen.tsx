@@ -1,31 +1,50 @@
 import React, { useContext } from 'react';
-import { View } from 'react-native';
+import { ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Title, Button } from 'react-native-paper';
-import { NavigationScreenProps } from 'react-navigation';
+import * as Yup from 'yup';
 
 import AuthForm from '../../components/AuthForm/AuthForm';
 import { Context as AuthContext } from './../../context/AuthContext';
 
 import { styles } from './styles';
 
-const LoginScreen = ({ navigation }: NavigationScreenProps) => {
+export const LoginSchema = Yup.object().shape({
+    email: Yup.string()
+        .email('Invalid email')
+        .required('Email is required'),
+    password: Yup.string()
+        .min(6)
+        .required('Password is required'),
+});
+
+const LoginScreen = ({ navigation }: any) => {
     const { login } = useContext(AuthContext);
 
     return (
-        <View style={styles.formStyle}>
-            <Title style={styles.titleStyle}>Login</Title>
+        <KeyboardAvoidingView
+            style={styles.formStyle}
+            behavior="padding"
+            enabled>
+            <ScrollView
+                contentContainerStyle={{
+                    flexGrow: 1,
+                    justifyContent: 'center',
+                }}>
+                <Title style={styles.titleStyle}>Login</Title>
 
-            <AuthForm
-                route={navigation.state.routeName}
-                submitButtonText={'Login'}
-                onSubmit={login}
-            />
-            <Button
-                style={styles.linkStyle}
-                onPress={() => navigation.navigate('Register')}>
-                Don't have an account? Register!
-            </Button>
-        </View>
+                <AuthForm
+                    route={navigation.state.routeName}
+                    submitButtonText={'Login'}
+                    onSubmit={login}
+                    validationSchema={LoginSchema}
+                />
+                <Button
+                    style={styles.linkStyle}
+                    onPress={() => navigation.navigate('Register')}>
+                    Don't have an account? Register!
+                </Button>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 

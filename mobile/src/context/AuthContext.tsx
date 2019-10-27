@@ -50,14 +50,6 @@ const authReducer = (state: INITIAL_STATE, action: ActionType) => {
 const register = (dispatch: Dispatch<any>) => async (values: FormValues) => {
     const { email, password, confirmPassword } = values;
 
-    if (password !== confirmPassword) {
-        dispatch({
-            type: 'ERROR',
-            payload: "Provided passwords doesn't match",
-        });
-        return;
-    }
-
     try {
         const response = await server.post('/register', {
             email,
@@ -103,7 +95,7 @@ const login = (dispatch: Dispatch<any>) => async (values: FormValues) => {
             type: 'LOGIN',
             payload: response.data.token,
         });
-        navigate('Dashboard');
+        navigate('AppFlow');
     } catch (error) {
         dispatch({
             type: 'ERROR',

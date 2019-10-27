@@ -12,7 +12,7 @@ const DashboardScreen = () => {
         <View style={{ flex: 1 }}>
             <SafeAreaView>
                 <Text>Welcome in the App!</Text>
-                <Button icon="lock" mode="contained" onPress={() => logout()}>
+                <Button mode="contained" onPress={() => logout()}>
                     LOGOUT
                 </Button>
             </SafeAreaView>
