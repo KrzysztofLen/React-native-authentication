@@ -2,10 +2,10 @@ import React from 'react';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import LoginScreen from '../screens/LoginScreen/LoginScreen';
-import RegisterScreen from '../screens/RegisterScreen/RegisterScreen';
-import DashboardScreen from '../screens/DashboardScreen/DashboardScreen';
-import ResolveAuthScreen from '../screens/ResolveAuthScreen/ResolveAuthScreen';
+import { LoginScreen } from '@screens/LoginScreen';
+import { RegisterScreen } from '@screens/RegisterScreen';
+import { DashboardScreen } from '@screens/DashboardScreen';
+import { ResolveAuthScreen } from '@screens/ResolveAuthScreen';
 
 const StackNavigator = createStackNavigator({
     Login: {
@@ -24,12 +24,15 @@ const StackNavigator = createStackNavigator({
 
 const AppFlow = createStackNavigator({ AppFlow: DashboardScreen });
 
-const AppNavigator = createSwitchNavigator({
-    ResolveAuth: ResolveAuthScreen,
-    LoginFlow: StackNavigator,
-    AppFlow: AppFlow,
-}, {
-    initialRouteName: "LoginFlow"
-});
+const AppNavigator = createSwitchNavigator(
+    {
+        ResolveAuth: ResolveAuthScreen,
+        LoginFlow: StackNavigator,
+        AppFlow: AppFlow,
+    },
+    {
+        initialRouteName: 'LoginFlow',
+    },
+);
 
 export const Navigation = createAppContainer(AppNavigator);

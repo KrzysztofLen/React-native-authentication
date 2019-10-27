@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Context as AuthContext } from './../../context/AuthContext';
 
-const ResolveAuthScreen = () => {
+export const ResolveAuthScreen = () => {
     const { tryLogin } = useContext(AuthContext);
 
     useEffect(() => {
@@ -11,4 +11,3 @@ const ResolveAuthScreen = () => {
     return null;
 };
 
-export default ResolveAuthScreen;

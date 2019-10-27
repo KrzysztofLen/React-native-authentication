@@ -3,8 +3,10 @@ import { ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Title, Button } from 'react-native-paper';
 import * as Yup from 'yup';
 
-import AuthForm from '../../components/AuthForm/AuthForm';
 import { Context as AuthContext } from './../../context/AuthContext';
+
+import AuthForm from '@components/AuthForm/AuthForm';
+import { SnackbarMessage } from '@components/SnackbarMessage';
 
 import { styles } from './styles';
 
@@ -17,8 +19,12 @@ export const LoginSchema = Yup.object().shape({
         .required('Password is required'),
 });
 
-const LoginScreen = ({ navigation }: any) => {
-    const { login } = useContext(AuthContext);
+export const LoginScreen = ({ navigation }: any) => {
+    const { state, login } = useContext(AuthContext);
+
+    const goToRegister = () => {
+        navigation.navigate('Register');
+    };
 
     return (
         <KeyboardAvoidingView
@@ -38,14 +44,14 @@ const LoginScreen = ({ navigation }: any) => {
                     onSubmit={login}
                     validationSchema={LoginSchema}
                 />
-                <Button
-                    style={styles.linkStyle}
-                    onPress={() => navigation.navigate('Register')}>
+                <Button style={styles.linkStyle} onPress={goToRegister}>
                     Don't have an account? Register!
                 </Button>
+
+                {state.snackbarMessage != null && (
+                    <SnackbarMessage message={state.snackbarMessage} />
+                )}
             </ScrollView>
         </KeyboardAvoidingView>
     );
 };
-
-export default LoginScreen;

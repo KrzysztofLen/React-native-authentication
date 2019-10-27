@@ -1,6 +1,3 @@
-import * as Yup from 'yup';
-import { RegisterSchema, LoginSchema } from '../../screens';
-
 export type Errors = { [key: string]: string };
 
 export type FormValues = {

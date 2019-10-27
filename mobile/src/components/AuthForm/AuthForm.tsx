@@ -2,12 +2,10 @@ import React, { useContext } from 'react';
 import { View } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { ActivityIndicator, Button, TextInput } from 'react-native-paper';
-
 import { Formik, FormikActions } from 'formik';
 
-import ErrorMessage from '../ErrorMessage/ErrorMessage';
-
 import { Context as AuthContext } from './../../context/AuthContext';
+import { ErrorMessage } from '@components/ErrorMessage';
 
 import { styles } from './styles';
 import { Props, FormValues } from './types';
@@ -34,7 +32,6 @@ const AuthForm = ({ confirm = false, onSubmit, submitButtonText, validationSchem
                 }}
                 validationSchema={validationSchema}>
                 {({
-                    handleBlur,
                     handleChange,
                     handleSubmit,
                     errors,
