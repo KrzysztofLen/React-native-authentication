@@ -1,4 +1,3 @@
-import React from 'react';
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
@@ -28,11 +27,11 @@ const AppNavigator = createSwitchNavigator(
   {
     ResolveAuth: ResolveAuthScreen,
     LoginFlow: StackNavigator,
-    AppFlow: AppFlow,
+    AppFlow,
   },
   {
     initialRouteName: 'LoginFlow',
   },
 );
 
-export const Navigation = createAppContainer(AppNavigator);
+export default createAppContainer(AppNavigator);

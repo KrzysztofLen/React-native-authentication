@@ -5,10 +5,9 @@ import { IProps } from './types';
 import { styles } from './styles';
 
 export const ErrorMessage = (props: IProps) => {
-    return (
-        <View>
-            <Text style={styles.errorStyle}>{props.text}</Text>
-        </View>
-    );
+  return (
+    <View>
+      <Text style={styles.errorStyle}>{props.text}</Text>
+    </View>
+  );
 };
-

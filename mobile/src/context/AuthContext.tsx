@@ -1,4 +1,4 @@
-import React, { Dispatch } from 'react';
+import { Dispatch } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import { server } from './../api/server';
@@ -39,7 +39,11 @@ const authReducer = (state: INITIAL_STATE, action: ActionType) => {
         snackbarMessage: 'Login success',
       };
     case 'LOGOUT':
-      return { error: null, token: null, snackbarMessage: null };
+      return {
+        error: null,
+        token: null,
+        snackbarMessage: 'You successfully logout',
+      };
     case 'ERROR':
       return { token: null, error: action.payload, snackbarMessage: null };
     default:
