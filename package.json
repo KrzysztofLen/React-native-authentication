@@ -1,14 +1,13 @@
 {
-	"name": "restaurantapp",
+	"name": "react-native-authentication",
 	"version": "1.0.0",
-	"description": "React Native, React, Node JS, Typescript",
+	"description": "React Native, Node JS, Typescript",
 	"main": "index.js",
 	"scripts": {
 		"develop:mobile": "cd mobile && yarn cache clean && react-native run-ios",
 		"develop:server": "cd server && yarn run start",
 		"clean": "cd mobile && watchman watch-del-all && rm -rf yarn.lock && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-* && yarn install && say I love react native"
 	},
-	"author": "",
 	"dependencies": {},
 	"devDependencies": {}
 }
