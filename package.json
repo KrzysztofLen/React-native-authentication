@@ -1,33 +1,13 @@
 {
-	"name": "restaurantapp",
+	"name": "react-native-authentication",
 	"version": "1.0.0",
-	"description": "React Native, React, Node JS, Typescript",
+	"description": "React Native, Node JS, Typescript",
 	"main": "index.js",
 	"scripts": {
-		"develop:web": "cd web && yarn run start",
-		"develop:mobile": "cd mobile && yarn run start",
-		"develop:server": "cd server && yarn run start"
+		"develop:mobile": "cd mobile && yarn cache clean && react-native run-ios",
+		"develop:server": "cd server && yarn run start",
+		"clean": "cd mobile && watchman watch-del-all && rm -rf yarn.lock && rm -rf node_modules && rm -rf $TMPDIR/metro-* && rm -rf $TMPDIR/haste-map-* && yarn install && say I love react native"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/KrzysztofLen/RestaurantApp.git"
-	},
-	"author": "",
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/KrzysztofLen/RestaurantApp/issues"
-	},
-	"homepage": "https://github.com/KrzysztofLen/RestaurantApp#readme",
-	"dependencies": {
-		"eslint": "^6.2.2"
-	},
-	"devDependencies": {
-		"babel-eslint": "^10.0.2",
-		"eslint-config-prettier": "^6.1.0",
-		"eslint-plugin-flowtype": "^4.2.0",
-		"eslint-plugin-import": "^2.18.2",
-		"eslint-plugin-jsx-a11y": "^6.2.3",
-		"eslint-plugin-react": "^7.14.3",
-		"eslint-plugin-react-hooks": "^2.0.1"
-	}
+	"dependencies": {},
+	"devDependencies": {}
 }

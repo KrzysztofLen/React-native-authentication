@@ -1,6 +1,16 @@
-export type Errors = { [k: string]: string };
+export type Errors = { [key: string]: string };
 
 export type FormValues = {
-    email: string;
-    password: string;
+    readonly email: string;
+    readonly password: string;
+    readonly confirmPassword?: string;
+};
+
+export type Props = {
+    readonly confirm?: boolean;
+    readonly route: string;
+    readonly submitButtonText: string;
+    readonly navigation?: any;
+    readonly onSubmit: (values: FormValues) => void;
+    readonly validationSchema: any;
 };
