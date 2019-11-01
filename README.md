@@ -12,6 +12,7 @@ delete build folder
 run react-native run-ios```
 
 # TODO
-- Yup validation
-- Dark mode
-- 2FA auth
+- [x] Yup validation
+- [x] Check if account exist under register
+- [ ] Dark mode
+- [ ] 2FA auth
