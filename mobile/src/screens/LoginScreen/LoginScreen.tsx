@@ -11,47 +11,44 @@ import { SnackbarMessage } from '@components/SnackbarMessage';
 import { styles } from './styles';
 
 export const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-        .email('Invalid email')
-        .required('Email is required'),
-    password: Yup.string()
-        .min(6)
-        .required('Password is required'),
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+  password: Yup.string()
+    .min(6)
+    .required('Password is required'),
 });
 
 export const LoginScreen = ({ navigation }: any) => {
-    const { state, login } = useContext(AuthContext);
+  const { state, login } = useContext(AuthContext);
 
-    const goToRegister = () => {
-        navigation.navigate('Register');
-    };
+  const goToRegister = () => {
+    navigation.navigate('Register');
+  };
 
-    return (
-        <KeyboardAvoidingView
-            style={styles.formStyle}
-            behavior="padding"
-            enabled>
-            <ScrollView
-                contentContainerStyle={{
-                    flexGrow: 1,
-                    justifyContent: 'center',
-                }}>
-                <Title style={styles.titleStyle}>Login</Title>
+  return (
+    <KeyboardAvoidingView style={styles.formStyle} behavior="padding" enabled>
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+          justifyContent: 'center',
+        }}>
+        <Title style={styles.titleStyle}>Login</Title>
 
-                <AuthForm
-                    route={navigation.state.routeName}
-                    submitButtonText={'Login'}
-                    onSubmit={login}
-                    validationSchema={LoginSchema}
-                />
-                <Button style={styles.linkStyle} onPress={goToRegister}>
-                    Don't have an account? Register!
-                </Button>
+        <AuthForm
+          route={navigation.state.routeName}
+          submitButtonText={'Login'}
+          onSubmit={login}
+          validationSchema={LoginSchema}
+        />
+        <Button style={styles.linkStyle} onPress={goToRegister}>
+          Don't have an account? Register!
+        </Button>
 
-                {state.snackbarMessage != null && (
-                    <SnackbarMessage message={state.snackbarMessage} />
-                )}
-            </ScrollView>
-        </KeyboardAvoidingView>
-    );
+        {state.snackbarMessage != null && (
+          <SnackbarMessage message={state.snackbarMessage} />
+        )}
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
 };

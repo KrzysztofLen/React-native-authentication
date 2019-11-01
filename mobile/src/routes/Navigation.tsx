@@ -8,31 +8,31 @@ import { DashboardScreen } from '@screens/DashboardScreen';
 import { ResolveAuthScreen } from '@screens/ResolveAuthScreen';
 
 const StackNavigator = createStackNavigator({
-    Login: {
-        screen: LoginScreen,
-        navigationOptions: () => ({
-            title: 'Login',
-        }),
-    },
-    Register: {
-        screen: RegisterScreen,
-        navigationOptions: () => ({
-            title: 'Register',
-        }),
-    },
+  Login: {
+    screen: LoginScreen,
+    navigationOptions: () => ({
+      title: 'Login',
+    }),
+  },
+  Register: {
+    screen: RegisterScreen,
+    navigationOptions: () => ({
+      title: 'Register',
+    }),
+  },
 });
 
 const AppFlow = createStackNavigator({ AppFlow: DashboardScreen });
 
 const AppNavigator = createSwitchNavigator(
-    {
-        ResolveAuth: ResolveAuthScreen,
-        LoginFlow: StackNavigator,
-        AppFlow: AppFlow,
-    },
-    {
-        initialRouteName: 'LoginFlow',
-    },
+  {
+    ResolveAuth: ResolveAuthScreen,
+    LoginFlow: StackNavigator,
+    AppFlow: AppFlow,
+  },
+  {
+    initialRouteName: 'LoginFlow',
+  },
 );
 
 export const Navigation = createAppContainer(AppNavigator);
